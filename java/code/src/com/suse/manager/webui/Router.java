@@ -35,6 +35,7 @@ import com.suse.manager.webui.controllers.FormulaController;
 import com.suse.manager.webui.controllers.ImageBuildController;
 import com.suse.manager.webui.controllers.ImageProfileController;
 import com.suse.manager.webui.controllers.ImageStoreController;
+import com.suse.manager.webui.controllers.LoginController;
 import com.suse.manager.webui.controllers.MinionController;
 import com.suse.manager.webui.controllers.MinionsAPI;
 import com.suse.manager.webui.controllers.NotificationMessageController;
@@ -71,6 +72,10 @@ public class Router implements SparkApplication {
         JadeTemplateEngine jade = setup();
 
         initNotFoundRoutes(jade);
+
+        // Login
+        get("/manager/login", withCsrfToken(LoginController::loginView), jade);
+        post("/manager/api/login", LoginController::login);
 
         //CVEAudit
 
